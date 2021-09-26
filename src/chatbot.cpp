@@ -11,6 +11,7 @@
 // constructor WITHOUT memory allocation
 ChatBot::ChatBot()
 {
+    std::cout << "Constructing Empty ChatBot at " <<this<<std::endl;
     // invalidate data handles
     _image = nullptr;
     _chatLogic = nullptr;
@@ -20,7 +21,7 @@ ChatBot::ChatBot()
 // constructor WITH memory allocation
 ChatBot::ChatBot(std::string filename)
 {
-    std::cout << "ChatBot Constructor" << std::endl;
+     std::cout << "Constructing ChatBot at " <<this<<std::endl;
     
     // invalidate data handles
     _chatLogic = nullptr;
@@ -32,7 +33,7 @@ ChatBot::ChatBot(std::string filename)
 
 ChatBot::~ChatBot()
 {
-    std::cout << "ChatBot Destructor" << std::endl;
+    std::cout << "Deleting ChatBot at "<<this<< std::endl;
 
     // deallocate heap memory
     if(_image != NULL) // Attention: wxWidgets used NULL and not nullptr
@@ -42,11 +43,38 @@ ChatBot::~ChatBot()
     }
 }
 
-//// STUDENT CODE
-////
+ChatBot::ChatBot(ChatBot &&source){
+    _image = source._image;
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+    std::cout<<"Moving ChatBot from "<<&source<<" to "<<this<<"\n";
+    // invalidating source data handles
+    source._image = nullptr;
+    source._chatLogic = nullptr;
+    source._rootNode = nullptr;
+    source._currentNode = nullptr;
+    }
 
-////
-//// EOF STUDENT CODE
+ChatBot & ChatBot::operator=(ChatBot &&source){
+    if ( this == &source) {
+        return *this;
+    }
+    delete _image;
+    _image = source._image;
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+   _chatLogic->SetChatbotHandle(this);
+    std::cout<<"Moving Assigning ChatBot from "<<&source<<" to "<<this<<"\n";
+    // invalidating source data handles
+    source._image = nullptr;
+    source._chatLogic = nullptr;
+    source._rootNode = nullptr;
+    source._currentNode = nullptr;
+    return *this;
+    }
 
 void ChatBot::ReceiveMessageFromUser(std::string message)
 {
