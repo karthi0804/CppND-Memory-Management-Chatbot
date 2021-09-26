@@ -41,7 +41,7 @@ public:
     void AddToken(std::string token); // add answers to list
     void AddEdgeToParentNode(std::weak_ptr<GraphEdge> edge);
     void AddEdgeToChildNode(std::shared_ptr<GraphEdge> edge);
-    void MoveChatbotHere(ChatBot &&chatbot);
+    void MoveChatbotHere(ChatBot chatbot);
     void MoveChatbotToNewNode(GraphNode *newNode);
 };
 

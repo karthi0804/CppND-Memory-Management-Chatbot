@@ -12,15 +12,9 @@
 #include "chatlogic.h"
 
 
-ChatLogic::ChatLogic()
-{
-    std::cout<<"Creating ChatLogic at "<<this<<"\n";
-}
+ChatLogic::ChatLogic(){}
 
-ChatLogic::~ChatLogic()
-{
-    std::cout<<"Deleting ChatLogic at "<<this<<"\n";
-}
+ChatLogic::~ChatLogic(){}
 
 template <typename T>
 void ChatLogic::AddAllTokensToElement(std::string tokenID, tokenlist &tokens, T &element)
@@ -179,9 +173,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
     ChatBot ChatBot_instance = ChatBot("../images/chatbot.png");
     ChatBot_instance.SetChatLogicHandle(this);
     ChatBot_instance.SetRootNode(rootNode);
-    std::cout<<"Transfering Init Chatbot to "<<rootNode->GetID()<<" node in LoadAnswer fn\n";
     rootNode->MoveChatbotHere(std::move(ChatBot_instance));
-    std::cout<<"Transfered Init Chatbot to "<<rootNode->GetID()<<" node in LoadAnswer fn\n"; 
 }
 
 void ChatLogic::SetPanelDialogHandle(ChatBotPanelDialog *panelDialog)
@@ -196,7 +188,6 @@ void ChatLogic::SetChatbotHandle(ChatBot *chatbot)
 
 void ChatLogic::SendMessageToChatbot(std::string message)
 {
-    std::cout<<"Msg Received from User!\n"; 
     _chatBot->ReceiveMessageFromUser(message);
 }
 
